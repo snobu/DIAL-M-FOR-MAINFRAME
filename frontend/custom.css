@@ -1,3 +1,12 @@
+.tooltipsy {
+    font: 16px "Segoe UI";
+    padding: 8px;
+    max-width: 200px;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #555;
+}
+
 body { background-color: #000; color: #fff; }
 #chartdiv {
   width: 100%;
