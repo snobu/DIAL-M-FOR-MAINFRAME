@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Topmenu and the submenus are based of the example found at this location http://blog.skeltonnetworks.com/2010/03/python-curses-custom-menu/
-# The rest of the work was done by Matthew Bennett and he requests you keep these two mentions when you reuse the code :-)
-# Basic code refactoring by Andrew Scheller
 
 from time import sleep
 import curses, os #curses is the interface for capturing key presses on the menu, os launches the files
@@ -10,29 +7,44 @@ screen = curses.initscr() #initializes a new window for capturing key presses
 curses.noecho() # Disables automatic echoing of key presses (prevents program from input each key twice)
 curses.cbreak() # Disables line buffering (runs each key as it is pressed rather than waiting for the return key to pressed)
 curses.start_color() # Lets you use colors when highlighting selected menu option
+#curses.resizeterm(20, 80)
 screen.keypad(1) # Capture input from keypad
 
 # Change this to use different colors when highlighting
-curses.init_pair(1,curses.COLOR_BLACK, curses.COLOR_GREEN) # Sets up color pair #1, it does black text with white background
+curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_GREEN) # Sets up color pair #1, it does black text with white background
+curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
 h = curses.color_pair(1) #h is the coloring for a highlighted menu option
-n = curses.A_NORMAL #n is the coloring for a non highlighted menu option
+#n = curses.A_NORMAL #n is the coloring for a non highlighted menu option
+n = curses.color_pair(2)
 
 MENU = "menu"
 COMMAND = "command"
 EXITMENU = "exitmenu"
 
 menu_data = {
-  'title': "Program Launcher", 'type': MENU, 'subtitle': "Please select an option...",
+  'title': "IBM System/390, S/390 Version 2 Release 10 (May 2000)", 'type': MENU, 'subtitle': "---- Primary Option Menu -----\n",
   'options':[
         { 'title': "START DATABASE SERVICE", 'type': COMMAND, 'command': 'service lighttpd start && python progress.py' },
+        { 'title': "STOP DATABASE SERVICE", 'type': COMMAND, 'command': '' },
+        { 'title': "BATCH", 'type': COMMAND, 'command': '' },
+        { 'title': "UTILITIES", 'type': COMMAND, 'command': '' },
+        { 'title': "PRINT", 'type': COMMAND, 'command': '' },
+        { 'title': "IBM PRODUCTS", 'type': COMMAND, 'command': '' },
+        { 'title': "DB2", 'type': COMMAND, 'command': '' },
   ]
 }
 
 
+def showibmlogo():
+  # Render ANSI IBM logo
+  from render import ANSIRender
+  import sys
+  ibmlogo = open('IBM.ans', "rb").read()
+  print ANSIRender(ibmlogo)
+
 
 # This function displays the appropriate menu and returns the option selected
 def runmenu(menu, parent):
-
   # work out what text to display as the last menu option
   if parent is None:
     lastoption = "Exit"
@@ -66,6 +78,7 @@ def runmenu(menu, parent):
       screen.addstr(5+optioncount,4, "%d - %s" % (optioncount+1, lastoption), textstyle)
       screen.refresh()
       # finished updating screen
+      showibmlogo()
 
     x = screen.getch() # Gets user input
 
@@ -131,3 +144,5 @@ def progress():
       sleep(0.02) # do actual stuff here instead
   except KeyboardInterrupt:
       print '\rLoading: [\033[1;42m%s\033[1;m%s] %d%%  ' % (blockchar*(x/2), " "*(num/2-x/2), x)
+
+
