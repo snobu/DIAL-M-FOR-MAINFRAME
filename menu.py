@@ -24,8 +24,8 @@ EXITMENU = "exitmenu"
 menu_data = {
   'title': "IBM System/390, S/390 Version 2 Release 10 (May 2000)", 'type': MENU, 'subtitle': "---- Primary Option Menu -----\n",
   'options':[
-        { 'title': "START DATABASE SERVICE", 'type': COMMAND, 'command': 'service lighttpd start && python progress.py' },
-        { 'title': "STOP DATABASE SERVICE", 'type': COMMAND, 'command': '' },
+        { 'title': "START DATABASE SERVICE", 'type': COMMAND, 'command': 'sudo service lighttpd start && python progress.py' },
+        { 'title': "STOP DATABASE SERVICE", 'type': COMMAND, 'command': 'sudo service lighttpd stop && python progress.py' },
         { 'title': "BATCH", 'type': COMMAND, 'command': '' },
         { 'title': "UTILITIES", 'type': COMMAND, 'command': '' },
         { 'title': "PRINT", 'type': COMMAND, 'command': '' },
@@ -47,7 +47,7 @@ def showibmlogo():
 def runmenu(menu, parent):
   # work out what text to display as the last menu option
   if parent is None:
-    lastoption = "Exit"
+    lastoption = "EXIT"
   else:
     lastoption = "Return to %s menu" % parent['title']
 
