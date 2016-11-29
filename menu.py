@@ -21,8 +21,10 @@ MENU = "menu"
 COMMAND = "command"
 EXITMENU = "exitmenu"
 
+hellomsg = '*** WELCOME TO SWEARJAR BANK MAINFRAME SYSTEM ***'
+
 menu_data = {
-  'title': "IBM System/390, S/390 Version 2 Release 10 (May 2000)", 'type': MENU, 'subtitle': "---- Primary Option Menu -----\n",
+  'title': "IBM System/390, S/390 Version 2 Release 10 (May 2000)", 'type': MENU, 'subtitle': "---- Primary Option Menu ----",
   'options':[
         { 'title': "START DATABASE SERVICE", 'type': COMMAND, 'command': 'sudo service lighttpd start && python progress.py' },
         { 'title': "STOP DATABASE SERVICE", 'type': COMMAND, 'command': 'sudo service lighttpd stop && python progress.py' },
@@ -62,20 +64,21 @@ def runmenu(menu, parent):
     if pos != oldpos:
       oldpos = pos
       screen.border(0)
-      screen.addstr(2,2, menu['title'], curses.A_STANDOUT) # Title for this menu
-      screen.addstr(4,2, menu['subtitle'], curses.A_BOLD) #Subtitle for this menu
+      screen.addstr(2,2, hellomsg, curses.A_STANDOUT)
+      screen.addstr(3,2, menu['title'], curses.A_BOLD) # Title for this menu
+      screen.addstr(5,2, menu['subtitle'], curses.A_BOLD) #Subtitle for this menu
 
       # Display all the menu items, showing the 'pos' item highlighted
       for index in range(optioncount):
         textstyle = n
         if pos==index:
           textstyle = h
-        screen.addstr(5+index,4, "%d - %s" % (index+1, menu['options'][index]['title']), textstyle)
+        screen.addstr(6+index,4, "%d - %s" % (index+1, menu['options'][index]['title']), textstyle)
       # Now display Exit/Return at bottom of menu
       textstyle = n
       if pos==optioncount:
         textstyle = h
-      screen.addstr(5+optioncount,4, "%d - %s" % (optioncount+1, lastoption), textstyle)
+      screen.addstr(6+optioncount,4, "%d - %s" % (optioncount+1, lastoption), textstyle)
       screen.refresh()
       # finished updating screen
       showibmlogo()
