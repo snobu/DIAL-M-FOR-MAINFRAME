@@ -30,7 +30,7 @@ menu_data = {
         { 'title': "STOP DATABASE SERVICE", 'type': COMMAND, 'command': 'sudo service lighttpd stop && python progress.py' },
         { 'title': "BATCH", 'type': COMMAND, 'command': '' },
         { 'title': "UTILITIES", 'type': COMMAND, 'command': '' },
-        { 'title': "PRINT", 'type': COMMAND, 'command': '' },
+        { 'title': "PRINT", 'type': COMMAND, 'command': 'toilet -f mono9 --metal Thank you!; tail -f /dev/null > /dev/null 2>&1' },
         { 'title': "IBM PRODUCTS", 'type': COMMAND, 'command': '' },
         { 'title': "DB2", 'type': COMMAND, 'command': '' },
   ]
